@@ -1,24 +1,26 @@
-QT       += core gui
+QT -= gui
 
-greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
+CONFIG += c++11 console
+CONFIG -= app_bundle
 
-CONFIG += c++17
-
-# You can make your code fail to compile if it uses deprecated APIs.
-# In order to do so, uncomment the following line.
-#DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
+# Para que la consola permanezca abierta en Windows
+win32:CONFIG += console
 
 SOURCES += \
     main.cpp \
-    mainwindow.cpp
+    particle.cpp \
+    obstacle.cpp \
+    box.cpp \
+    simulator.cpp
 
 HEADERS += \
-    mainwindow.h
+    particle.h \
+    obstacle.h \
+    box.h \
+    simulator.h
 
-FORMS += \
-    mainwindow.ui
+# Directorio de salida
+DESTDIR = $$PWD
 
-# Default rules for deployment.
-qnx: target.path = /tmp/$${TARGET}/bin
-else: unix:!android: target.path = /opt/$${TARGET}/bin
-!isEmpty(target.path): INSTALLS += target
+# Para debugging
+DEFINES += QT_MESSAGELOGCONTEXT

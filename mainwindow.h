@@ -2,12 +2,13 @@
 #define MAINWINDOW_H
 
 #include <QMainWindow>
-
-QT_BEGIN_NAMESPACE
-namespace Ui {
-class MainWindow;
-}
-QT_END_NAMESPACE
+#include <QGraphicsScene>
+#include <QGraphicsView>
+#include <QTimer>
+#include <QSlider>
+#include <QLabel>
+#include <QPushButton>
+#include "gameengine.h"
 
 class MainWindow : public QMainWindow
 {
@@ -17,7 +18,37 @@ public:
     MainWindow(QWidget *parent = nullptr);
     ~MainWindow();
 
+private slots:
+    void updateGame();
+    void launchProjectile();
+    void updateAngleLabel(int value);
+    void updateSpeedLabel(int value);
+
 private:
-    Ui::MainWindow *ui;
+    QGraphicsScene *scene;
+    QGraphicsView *view;
+    QTimer *timer;
+
+    QSlider *angleSlider;
+    QSlider *speedSlider;
+    QPushButton *launchButton;
+    QLabel *angleLabel;
+    QLabel *speedLabel;
+    QLabel *playerLabel;
+    QLabel *statusLabel;
+
+    GameEngine *engine;
+
+    QGraphicsEllipseItem *projectileItem;
+    QVector<QGraphicsRectItem*> player1InfraItems;
+    QVector<QGraphicsRectItem*> player2InfraItems;
+    QVector<QGraphicsTextItem*> resistanceLabels1;
+    QVector<QGraphicsTextItem*> resistanceLabels2;
+
+    void setupUI();
+    void setupGame();
+    void renderScene();
+    void updateResistanceLabels();
 };
+
 #endif // MAINWINDOW_H
